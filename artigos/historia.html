@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TÍTULO DO ARTIGO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+
+        header {
+            background: #006f87;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #006f87;
+            margin-bottom: 15px;
+        }
+
+        p {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .comentarios-container {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 18px;
+            background: #006f87;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .comentario {
+            background: #f4f6f8;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Blog Interativo de Viagens e Turismo</h1>
+    </header>
+
+    <div class="container">
+        <h2>Destinos Históricos que Você Precisa Conhecer</h2>
+
+        <p>
+            Viajar no tempo é possível ao visitar cidades históricas cheias de cultura e tradição.
+        </p>
+
+        <p>
+            Roma, Paris, Kyoto e Ouro Preto são exemplos de lugares que preservam sua história
+            através da arquitetura e costumes.
+        </p>
+
+        <p>
+            Esses destinos oferecem aprendizado, beleza e experiências enriquecedoras.
+        </p>
+
+
+        <div class="comentarios-container">
+            <h3>Comentários</h3>
+            <textarea id="comentario" placeholder="Escreva seu comentário..."></textarea>
+            <button onclick="adicionarComentario()">Enviar</button>
+            <div id="lista"></div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Blog Interativo de Viagens e Turismo
+    </footer>
+
+    <script>
+        const chave = location.pathname;
+        const lista = document.getElementById("lista");
+        const textarea = document.getElementById("comentario");
+
+        function carregar() {
+            const dados = JSON.parse(localStorage.getItem(chave)) || [];
+            lista.innerHTML = "";
+            dados.forEach(c => {
+                const div = document.createElement("div");
+                div.className = "comentario";
+                div.innerHTML = `${c.texto}<br><small>${c.data}</small>`;
+                lista.appendChild(div);
+            });
+        }
+
+        function adicionarComentario() {
+            if (textarea.value.trim() === "") return;
+
+            const dados = JSON.parse(localStorage.getItem(chave)) || [];
+            dados.push({
+                texto: textarea.value,
+                data: new Date().toLocaleString("pt-BR")
+            });
+
+            localStorage.setItem(chave, JSON.stringify(dados));
+            textarea.value = "";
+            carregar();
+        }
+
+        carregar();
+    </script>
+
+</body>
+
+</html>
