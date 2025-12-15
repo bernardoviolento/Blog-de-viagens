@@ -3,72 +3,111 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Interativo de Viagens e Turismo</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Blog Interativo de Viagens</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Cabeçalho -->
+
     <header>
         <div class="container">
-            <h1>Blog Interativo de Viagens e Turismo</h1>
+            <h1>Blog de Viagens</h1>
             <nav>
                 <a href="#artigos">Artigos</a>
                 <a href="#galeria">Galeria</a>
-                <a href="#contato">Contato</a>
+                <a href="login/login.html" id="loginLink">Login</a>
+                <a href="#" onclick="logout()" id="logoutBtn" style="display:none">Logout</a>
             </nav>
+            <span id="user"></span>
         </div>
     </header>
 
-    <!-- Seção Artigos -->
+    <section class="section">
+        <div class="container">
+            <h2>Buscar Artigos</h2>
+            <input type="text" id="busca" placeholder="Buscar destino..." onkeyup="buscarArtigos()">
+        </div>
+    </section>
+
     <section id="artigos" class="section">
         <div class="container">
-            <h2>Artigos Recentes</h2>
-            <div class="article-card">
-                <img src="https://via.placeholder.com/800x400" alt="Destino">
+            <h2>Artigos</h2>
+
+            <div class="article-card artigo">
+                <img src="img/img7.jpg">
                 <div class="article-content">
-                    <h3>5 Destinos Imperdíveis para sua Próxima Viagem</h3>
-                    <p>Confira as dicas dos melhores lugares para você explorar nas férias! Lugares paradisíacos e
-                        culturais.</p>
-                    <a href="#">Leia mais</a>
+                    <h3>5 Destinos Imperdíveis</h3>
+                    <p>Lugares incríveis para sua próxima viagem.</p>
+                    <a href="artigos/5destinos.html">Leia mais</a>
                 </div>
             </div>
-            <div class="article-card">
-                <img src="https://via.placeholder.com/800x400" alt="Destino">
+
+            <div class="article-card artigo">
+                <img src="img/viagem.jpg">
                 <div class="article-content">
-                    <h3>Como Viajar de Forma Sustentável e Eficiente</h3>
-                    <p>Descubra como reduzir o impacto ambiental nas suas viagens e escolher destinos ecológicos.</p>
-                    <a href="#">Leia mais</a>
+                    <h3>Viagens Sustentáveis</h3>
+                    <p>Dicas essenciais para viajar de forma sustentável.</p>
+                    <a href="artigos/viagem-sustentavel.html">Leia mais</a>
                 </div>
             </div>
+
+            <div class="article-card artigo">
+                <img src="img/img9.jpg">
+                <div class="article-content">
+                    <h3>Turismo de Aventura no Chile</h3>
+                    <p>Trilhas, montanhas e natureza extrema.</p>
+                    <a href="artigos/chile.html">Leia mais</a>
+                </div>
+            </div>
+
+            <div class="article-card artigo">
+                <img src="img/img5.webp">
+                <div class="article-content">
+                    <h3>Praias Parasidiacas</h3>
+                    <p>As melhores praias do mundo.</p>
+                    <a href="artigos/praia.html">Leia mais</a>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- Galeria de Fotos -->
     <section id="galeria" class="section">
         <div class="container">
-            <h2>Galeria de Fotos e Vídeos</h2>
+            <h2>Galeria</h2>
             <div class="gallery">
-                <img src="https://via.placeholder.com/400x250" alt="Destino 1">
-                <img src="https://via.placeholder.com/400x250" alt="Destino 2">
-                <img src="https://via.placeholder.com/400x250" alt="Destino 3">
-                <img src="https://via.placeholder.com/400x250" alt="Destino 4">
+                <img src="img/img9.jpg">
+                <img src="img/img2.jpg">
+                <img src="img/img3.jpg">
+                <img src="img/img4.jpg">
+                <img src="img/img5.jpg">
             </div>
         </div>
     </section>
 
-    <!-- Rodapé -->
-    <footer>
+    <section class="section">
         <div class="container">
-            <p>&copy; 2025 Blog Interativo de Viagens e Turismo. Todos os direitos reservados.</p>
-            <div class="social-links">
-                <a href="#" class="social-icon">Facebook</a>
-                <a href="#" class="social-icon">Instagram</a>
-                <a href="#" class="social-icon">Twitter</a>
-            </div>
+            <h2>Enquete</h2>
+            <p>Você viajaria para algum desses destinos?</p>
+            <button onclick="votar('sim')">Sim</button>
+            <button onclick="votar('nao')">Não</button>
+            <p id="resultado"></p>
         </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>Mapa de Destinos</h2>
+            <iframe width="100%" height="300" src="https://www.google.com/maps/embed" style="border:0;" loading="lazy">
+            </iframe>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 – Blog Interativo de Viagens</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
