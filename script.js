@@ -23,3 +23,4 @@ function votar(opcao) {
     votos[opcao]++
     resultado.innerText = `Sim: ${votos.sim} | Não: ${votos.nao}`
 }
+
