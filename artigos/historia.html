@@ -121,37 +121,60 @@
         &copy; 2025 Blog Interativo de Viagens e Turismo
     </footer>
 
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
-        const chave = location.pathname;
+        const SUPABASE_URL = "COLE_AQUI_SUA_URL";
+        const SUPABASE_KEY = "COLE_AQUI_SUA_ANON_KEY";
+
+        const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const ARTIGO = "5-destinos";
+
         const lista = document.getElementById("lista");
         const textarea = document.getElementById("comentario");
 
-        function carregar() {
-            const dados = JSON.parse(localStorage.getItem(chave)) || [];
+        /* CARREGAR */
+        async function carregarComentarios() {
+            const { data } = await sb
+                .from("comentarios")
+                .select("*")
+                .eq("artigo", ARTIGO)
+                .order("created_at", { ascending: false });
+
             lista.innerHTML = "";
-            dados.forEach(c => {
-                const div = document.createElement("div");
-                div.className = "comentario";
-                div.innerHTML = `${c.texto}<br><small>${c.data}</small>`;
-                lista.appendChild(div);
+
+            if (!data || data.length === 0) {
+                lista.innerHTML = "<p>Nenhum comentário ainda</p>";
+                return;
+            }
+
+            data.forEach(c => {
+                lista.innerHTML += `
+      <div class="comentario">
+        <p>${c.texto}</p>
+        <span>${new Date(c.created_at).toLocaleString("pt-BR")}</span>
+      </div>
+    `;
             });
         }
 
-        function adicionarComentario() {
-            if (textarea.value.trim() === "") return;
+        /* ENVIAR */
+        async function adicionarComentario() {
+            const texto = textarea.value.trim();
+            if (!texto) return alert("Digite algo!");
 
-            const dados = JSON.parse(localStorage.getItem(chave)) || [];
-            dados.push({
-                texto: textarea.value,
-                data: new Date().toLocaleString("pt-BR")
+            await sb.from("comentarios").insert({
+                artigo: ARTIGO,
+                texto: texto
             });
 
-            localStorage.setItem(chave, JSON.stringify(dados));
             textarea.value = "";
-            carregar();
+            carregarComentarios();
         }
 
-        carregar();
+        carregarComentarios();
     </script>
 
 </body>
